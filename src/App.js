@@ -10,21 +10,25 @@ import Footer from "./layouts/Footer";
 import Home from "./pages/Home";
 import Gallery from "./pages/Gallery";
 import Settings from "./pages/Settings";
+import Illustration from "./pages/gallery-group/Illustration";
+import Animation from "./pages/gallery-group/Animation";
 
 function App() {
     return (
         <BrowserRouter>
             <MainLayout
-            header={<Header/>}
-            sidebar={<Sidebar/>}
-            footer={<Footer/>}
-        >
-            <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/gallery' element={<Gallery/>}/>
-                <Route path='/settings' element={<Settings/>} />
-            </Routes>
-        </MainLayout>
+                header={<Header/>}
+                sidebar={<Sidebar/>}
+                footer={<Footer/>}
+            >
+                <Routes>
+                    <Route path='/' element={<Home/>}/>
+                    <Route path='/gallery' element={<Gallery/>} />
+                    <Route path='/gallery/illustration' element={<Illustration />} />
+                    <Route path='/gallery/animation' element={<Animation />} />
+                    <Route path='/settings' element={<Settings/>} />
+                </Routes>
+            </MainLayout>
         </BrowserRouter>
     );
 }

@@ -11,6 +11,7 @@
     --sidebar-header: #113b2a;
     --sidebar-bg: #103425;
     --sidebar-hover: #1c4b37;
+    --border-color: #203f29;
 }
 
 .main_layout{
@@ -124,4 +125,43 @@ a:hover{
 .main_content{
     min-height: 80vh;
     margin: 10px 10px 10px calc(var(--sidebar-collapsed-width) + 10px);
+}
+.menu-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.submenu-arrow {
+    cursor: pointer;
+    padding-right: 15px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    right: 0;
+    display: flex;
+}
+.submenu-arrow > svg{
+    transition: transform 0.3s ease;
+}
+.submenu-arrow.rotate > svg{
+    transform: rotate(180deg);
+}
+.submenu-group, .submenu-group-lv1{
+    position: relative;
+}
+.submenu{
+    display: flex;
+    flex-direction: column;
+}
+.submenu-item{
+    display: flex;
+    align-items: center;
+    padding: 12px 45px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    gap: 15px;
+}
+.submenu-item.active{
+    background: var(--sidebar-hover);
+    color: var(--hover-text-color);
 }

@@ -1,9 +1,11 @@
-import { MdSpaceDashboard, MdHome, MdInsertPhoto, MdSettings, MdArrowCircleRight, MdArrowCircleLeft } from "react-icons/md";
+import { MdSpaceDashboard, MdHome, MdInsertPhoto, MdSettings, MdArrowCircleRight, MdArrowCircleLeft, MdKeyboardArrowDown, MdOutlineOndemandVideo } from "react-icons/md";
+import { RiGalleryView2 } from "react-icons/ri";
 import {useState} from "react";
 import { NavLink } from "react-router-dom"
 
 function Sidebar() {
     const [collapsed, setCollapsed] = useState(true)
+    const [openMenu, setOpenMenu] = useState(null)
 
     return (
         <div className={`sidebar ${collapsed ? "collapsed" : "expanded"}`}>
@@ -18,12 +20,37 @@ function Sidebar() {
                     <span className="menu-text">Home</span>
                 </NavLink>
 
-                <NavLink to='/gallery' className="menu-item">
-                    <span className="menu-icon"><MdInsertPhoto /></span>
-                    <span className="menu-text">Gallery</span>
-                </NavLink>
+                <div className='submenu-group'>
+                    <NavLink to='/gallery' className={({isActive}) => isActive ? "menu-item active" : "menu-item"}>
+                        <span className="menu-icon"><RiGalleryView2 /></span>
+                        <span className="menu-text">Gallery</span>
+                    </NavLink>
+                    {!collapsed && (
+                        <span
+                            className={`submenu-arrow ${openMenu === 'gallery' ? 'rotate' : ''}`}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setOpenMenu(openMenu === 'gallery' ? null : 'gallery')}}
+                        >
+                            <MdKeyboardArrowDown />
+                        </span>
+                    )}
+                </div>
+                {openMenu === "gallery" && !collapsed && (
+                    <div className="submenu">
+                        <NavLink to="/gallery/illustration" className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}>
+                            <span className="menu-icon"><MdInsertPhoto /></span>
+                            <span className="menu-text">Illustration</span>
+                        </NavLink>
 
-                <NavLink to='/settings' className="menu-item">
+                        <NavLink to="/gallery/animation" className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}>
+                            <span className="menu-icon"><MdOutlineOndemandVideo /></span>
+                            <span className="menu-text">Animation</span>
+                        </NavLink>
+                    </div>
+                )}
+
+                <NavLink to='/settings' className={({isActive}) => isActive ? "menu-item active" : "menu-item"}>
                     <span className="menu-icon"><MdSettings /></span>
                     <span className="menu-text">Settings</span>
                 </NavLink>
