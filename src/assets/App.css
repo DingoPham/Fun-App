@@ -1,0 +1,121 @@
+:root{
+    --primary-background-color: #102c26;
+    --secondary-background-color: #1c4b37;
+    --primary-text-color: #f5fffa;
+    --hover-text-color: #b0ffd7;
+    --primary-button-color: #f7e7ce;
+    --primary-button-text-color: #333333;
+    --primary-font: "Quicksand";
+    --sidebar-width: 240px;
+    --sidebar-collapsed-width: 70px;
+    --sidebar-header: #113b2a;
+    --sidebar-bg: #103425;
+    --sidebar-hover: #1c4b37;
+}
+
+.main_layout{
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    font-size: calc(10px + 2vmin);
+    min-height: 100vh;
+    font-family: var(--primary-font), sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: var(--primary-text-color);
+    transition: color 0.3s ease;
+}
+
+a:hover{
+    color: var(--hover-text-color);
+}
+
+.head_layout{
+    background-color: var(--secondary-background-color);
+    padding: 20px 0;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.sidebar {
+    height: 100vh;
+    background: var(--sidebar-bg);
+    color: var(--primary-text-color);
+    transition: width 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 1;
+}
+
+/* 2 trạng thái */
+.sidebar.expanded {
+    width: var(--sidebar-width);
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+/* Header */
+.sidebar-header {
+    padding: 20px;
+    font-weight: bold;
+    background: var(--sidebar-header);
+    text-align: center;
+}
+
+/* Menu */
+.menu {
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    gap: 15px;
+}
+
+.menu-item:hover {
+    background: var(--sidebar-hover);
+}
+
+.menu-icon {
+    display: flex;
+}
+
+.menu-text {
+    transition: opacity 0.2s ease;
+}
+
+/* Khi collapsed thì ẩn text */
+.sidebar.collapsed .menu-text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.footer_layout{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-background-color);
+    z-index: 0;
+}
