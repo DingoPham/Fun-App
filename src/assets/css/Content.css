@@ -1,0 +1,17 @@
+.content_main{
+    position: relative;
+}
+.banner_content{
+    width: 100%;
+    object-fit: contain;
+    border-radius: 30px;
+    border: 5px solid #203f29;
+}
+.content_main > h3{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}

@@ -1,11 +1,11 @@
 
 function MainLayout ({header, sidebar, footer, children}){
     return(
-        <div>
+        <div className='main_layout'>
+            {sidebar}
             {header}
             <div>
-                {sidebar}
-                <main className='main_layout'>
+                <main className='main_content'>
                     {children}
                 </main>
             </div>

@@ -1,8 +1,9 @@
 import { MdSpaceDashboard, MdHome, MdInsertPhoto, MdSettings, MdArrowCircleRight, MdArrowCircleLeft } from "react-icons/md";
 import {useState} from "react";
+import { NavLink } from "react-router-dom"
 
 function Sidebar() {
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(true)
 
     return (
         <div className={`sidebar ${collapsed ? "collapsed" : "expanded"}`}>
@@ -12,25 +13,24 @@ function Sidebar() {
             </h3>
 
             <div className="menu">
-
-                <div className="menu-item">
+                <NavLink to='/' className={({isActive}) => isActive ? "menu-item active" : "menu-item"}>
                     <span className="menu-icon"><MdHome /></span>
-                    <span className="menu-text">Dashboard</span>
-                </div>
+                    <span className="menu-text">Home</span>
+                </NavLink>
 
-                <div className="menu-item">
+                <NavLink to='/gallery' className="menu-item">
                     <span className="menu-icon"><MdInsertPhoto /></span>
-                    <span className="menu-text">Products</span>
-                </div>
+                    <span className="menu-text">Gallery</span>
+                </NavLink>
 
-                <div className="menu-item">
+                <NavLink to='/settings' className="menu-item">
                     <span className="menu-icon"><MdSettings /></span>
                     <span className="menu-text">Settings</span>
-                </div>
+                </NavLink>
 
             </div>
 
-            <div className="menu-item" onClick={() => setCollapsed(!collapsed)}>
+            <div className="menu-item close" onClick={() => setCollapsed(!collapsed)}>
                 <span className="menu-icon">
                   {collapsed ? <MdArrowCircleRight/> : <MdArrowCircleLeft />}
                 </span>

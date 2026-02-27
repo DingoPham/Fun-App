@@ -6,7 +6,7 @@
     --primary-button-color: #f7e7ce;
     --primary-button-text-color: #333333;
     --primary-font: "Quicksand";
-    --sidebar-width: 240px;
+    --sidebar-width: 300px;
     --sidebar-collapsed-width: 70px;
     --sidebar-header: #113b2a;
     --sidebar-bg: #103425;
@@ -37,10 +37,7 @@ a:hover{
 .head_layout{
     background-color: var(--secondary-background-color);
     padding: 20px 0;
-    position: absolute;
     width: 100%;
-    top: 0;
-    left: 0;
     display: flex;
     justify-content: center;
     text-transform: uppercase;
@@ -85,12 +82,20 @@ a:hover{
     align-items: center;
     padding: 12px 20px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.3s ease, color 0.3s ease;
     gap: 15px;
+}
+.menu-item.close:hover{
+    background-color: var(--sidebar-header);
 }
 
 .menu-item:hover {
     background: var(--sidebar-hover);
+}
+
+.menu-item.active{
+    background: var(--sidebar-hover);
+    color: var(--hover-text-color);
 }
 
 .menu-icon {
@@ -108,9 +113,6 @@ a:hover{
 }
 
 .footer_layout{
-    position: absolute;
-    bottom: 0;
-    left: 0;
     height: 30vh;
     width: 100%;
     display: flex;
@@ -118,4 +120,8 @@ a:hover{
     align-items: center;
     background-color: var(--secondary-background-color);
     z-index: 0;
+}
+.main_content{
+    min-height: 80vh;
+    margin: 10px 10px 10px calc(var(--sidebar-collapsed-width) + 10px);
 }
