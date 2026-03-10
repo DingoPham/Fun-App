@@ -52,10 +52,6 @@ function Illustration(){
         }
     }
 
-    const getImageUrl = (url) => {
-        if (url.startsWith("http")) return url
-        return `http://localhost:5151${url}`
-    }
     return(
         <>
             <div className='illustration-container'>
@@ -75,7 +71,7 @@ function Illustration(){
                         )
                     }
                     return (
-                        <img key={img.id} src={getImageUrl(img.imageUrl)} alt={img.title}/>
+                        <img key={img.id} src={img.imageUrl} alt={img.title}/>
                     )
                 })}
             </div>
