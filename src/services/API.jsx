@@ -37,5 +37,14 @@ export const api = {
         })
         if (!res.ok) throw new Error("API error")
         return res
+    },
+
+    upload: async (endpoint, formData) => {
+        const res = await fetch(`${BASE_URL}${endpoint}`, {
+            method: "POST",
+            body: formData
+        })
+        if (!res.ok) throw new Error("API error")
+        return res.json()
     }
 }

@@ -36,12 +36,7 @@ function Illustration(){
             const formData = new FormData()
             formData.append("file", file)
 
-            const res = await fetch("http://localhost:5151/api/illustration/upload", {
-                method: "POST",
-                body: formData
-            })
-
-            const created = await res.json()
+            const created = await api.upload('/illustration/upload', formData)
 
             setImages(prev => [...prev, created])
 
