@@ -12,6 +12,8 @@
     --sidebar-bg: #103425;
     --sidebar-hover: #1c4b37;
     --border-color: #203f29;
+    --primary-button-color-dark: #103425;
+    --primary-button-text-color-dark: #f5fffa;
 }
 
 .main_layout{
@@ -54,13 +56,13 @@ a:hover{
     flex-direction: column;
     position: fixed;
     z-index: 1;
+    user-select: none;
 }
 
 /* 2 trạng thái */
 .sidebar.expanded {
     width: var(--sidebar-width);
 }
-
 .sidebar.collapsed {
     width: var(--sidebar-collapsed-width);
 }
@@ -125,6 +127,7 @@ a:hover{
 .main_content{
     min-height: 80vh;
     margin: 10px 10px 10px calc(var(--sidebar-collapsed-width) + 10px);
+    position: relative;
 }
 .menu-item-wrapper {
     display: flex;

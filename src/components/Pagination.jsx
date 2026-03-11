@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { SlArrowLeft , SlArrowRight } from "react-icons/sl";
 
 function Pagination({ totalItems, itemsPerPage, onPageData }) {
 
@@ -30,7 +31,9 @@ function Pagination({ totalItems, itemsPerPage, onPageData }) {
     return (
         <div className="pagination">
 
-            <button onClick={prevPage}>Prev</button>
+            <button onClick={prevPage}>
+                <SlArrowLeft />
+            </button>
 
             {pages.map(page => (
                 <button
@@ -42,7 +45,9 @@ function Pagination({ totalItems, itemsPerPage, onPageData }) {
                 </button>
             ))}
 
-            <button onClick={nextPage}>Next</button>
+            <button onClick={nextPage}>
+                <SlArrowRight />
+            </button>
 
         </div>
     );

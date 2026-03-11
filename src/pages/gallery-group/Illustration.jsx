@@ -5,11 +5,20 @@ import Pagination from "../../components/Pagination";
 
 function Illustration(){
     const [images, setImages] = useState([])
+    const [selectedImage, setSelectedImage] = useState(null)
     useEffect(() => {
         api.get('/illustration')
             .then(data => setImages(data))
             .catch(err => console.error(err))
     }, []);
+    useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === "Escape") setSelectedImage(null)
+        }
+
+        window.addEventListener("keydown", handleEsc)
+        return () => window.removeEventListener("keydown", handleEsc)
+    }, [])
 
     const [currentPage, setCurrentPage] = useState(1)
 
@@ -66,9 +75,14 @@ function Illustration(){
                         )
                     }
                     return (
-                        <img key={img.id} src={img.imageUrl} alt={img.title}/>
+                        <img key={img.id} src={img.imageUrl} alt={img.title} onClick={() => setSelectedImage(img.imageUrl)}/>
                     )
                 })}
+                {selectedImage && (
+                    <div className="image-overlay" onClick={() => setSelectedImage(null)}>
+                        <img src={selectedImage} alt="" onClick={(e) => e.stopPropagation()} />
+                    </div>
+                )}
             </div>
             <input
                 type="file"
