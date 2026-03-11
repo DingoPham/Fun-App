@@ -60,7 +60,6 @@ function Illustration(){
         <>
             <div className='illustration-container'>
                 {currentImages.map(img => {
-
                     if (img.isAdd) {
                         return (
                             <div
