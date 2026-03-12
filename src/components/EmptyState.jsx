@@ -1,7 +1,7 @@
 function EmptyState(){
     return (
         <div className="empty-state">
-            <p>Hiện tại chưa có ảnh</p>
+            <p>There are no nothing here...</p>
         </div>
     )
 }

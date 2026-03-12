@@ -74,11 +74,8 @@
     object-fit: cover;
     cursor: pointer;
     transition: transform 0.3s ease;
-    border: 2px solid var(--border-color);
 }
-.illustration-container img:hover{
-    transform: scale(0.95);
-}
+
 .increase-img-slot{
     width: 100%;
     height: 300px;
@@ -176,12 +173,53 @@
     from{transform:rotate(0deg)}
     to{transform:rotate(360deg)}
 }
+.empty-container{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+}
 .empty-state{
     width:100%;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:80px 0;
-    font-size:18px;
+    padding:5px 0;
+    font-size:30px;
     color:#777;
+}
+.empty-add-file{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    color:#666;
+    transition: color 0.3s ease;
+}
+.empty-add-file p{
+    margin: 3px;
+}
+.empty-add-file:hover{
+    color: var(--hover-text-color);
+}
+.illustration-container video{
+    width: 100%;
+    height: 300px;
+    border-radius: 26px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.image-overlay video {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: unset;
+    border: unset;
+    cursor: default;
 }

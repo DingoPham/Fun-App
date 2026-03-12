@@ -4,6 +4,7 @@ import { BsPlusCircleDotted } from "react-icons/bs";
 import Pagination from "../../components/Pagination";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import EmptyState from "../../components/EmptyState";
+import AddFileButton from "../../components/AddFileButton";
 
 function Illustration(){
     const [images, setImages] = useState([])
@@ -70,7 +71,19 @@ function Illustration(){
         return <LoadingSpinner />
     }
     if(images.length === 0){
-        return <EmptyState />
+        return (
+            <div className='empty-container'>
+                <EmptyState />
+                <AddFileButton onClick={openFilePicker}/>
+
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{display: "none"}}
+                    onChange={handleFileChange}
+                />
+            </div>
+        )
     }
 
     return(
