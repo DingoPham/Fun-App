@@ -2,14 +2,26 @@ import {useEffect, useRef, useState} from "react";
 import {api} from "../../services/API";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import Pagination from "../../components/Pagination";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import EmptyState from "../../components/EmptyState";
 
 function Illustration(){
     const [images, setImages] = useState([])
     const [selectedImage, setSelectedImage] = useState(null)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [loading, setLoading] = useState(true)
+
+    const fileInputRef = useRef(null)
     useEffect(() => {
         api.get('/illustration')
-            .then(data => setImages(data))
-            .catch(err => console.error(err))
+            .then(data =>{
+                setImages(data)
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error(err)
+                setLoading(false)
+            })
     }, []);
     useEffect(() => {
         const handleEsc = (e) => {
@@ -20,7 +32,7 @@ function Illustration(){
         return () => window.removeEventListener("keydown", handleEsc)
     }, [])
 
-    const [currentPage, setCurrentPage] = useState(1)
+
 
     const itemsPerPage = 8
 
@@ -29,8 +41,6 @@ function Illustration(){
     const indexOfLast = currentPage * itemsPerPage
     const indexOfFirst = indexOfLast - itemsPerPage
     const currentImages = imagesWithAddSlot.slice(indexOfFirst, indexOfLast)
-
-    const fileInputRef = useRef(null)
 
     const openFilePicker = () => {
         fileInputRef.current.click()
@@ -56,14 +66,21 @@ function Illustration(){
         }
     }
 
+    if(loading){
+        return <LoadingSpinner />
+    }
+    if(images.length === 0){
+        return <EmptyState />
+    }
+
     return(
         <>
             <div className='illustration-container'>
-                {currentImages.map(img => {
+                {currentImages.map((img, index) => {
                     if (img.isAdd) {
                         return (
                             <div
-                                key="add-slot"
+                                key={`add-slot-${index}`}
                                 className='increase-img-slot'
                                 onClick={openFilePicker}
                             >
@@ -74,12 +91,17 @@ function Illustration(){
                         )
                     }
                     return (
-                        <img key={img.id} src={img.imageUrl} alt={img.title} onClick={() => setSelectedImage(img.imageUrl)}/>
+                        <img key={img.id }
+                             src={img.imageUrl}
+                             alt={img.title}
+                             onClick={() => setSelectedImage(img.imageUrl)}/>
                     )
                 })}
                 {selectedImage && (
                     <div className="image-overlay" onClick={() => setSelectedImage(null)}>
-                        <img src={selectedImage} alt="" onClick={(e) => e.stopPropagation()} />
+                        <img src={selectedImage}
+                             alt=""
+                             onClick={(e) => e.stopPropagation()} />
                     </div>
                 )}
             </div>
