@@ -12,6 +12,8 @@ import Gallery from "./pages/Gallery";
 import Settings from "./pages/Settings";
 import Illustration from "./pages/gallery-group/Illustration";
 import Animation from "./pages/gallery-group/Animation";
+import UserProfile from "./components/users/UserProfile";
+import UserTable from "./components/users/UserTable";
 
 function App() {
     return (
@@ -27,6 +29,8 @@ function App() {
                     <Route path='/gallery/illustration' element={<Illustration />} />
                     <Route path='/gallery/animation' element={<Animation />} />
                     <Route path='/settings' element={<Settings/>} />
+                    <Route path='/settings/profile' element={<UserProfile />} />
+                    <Route path='/settings/users' element={<UserTable />} />
                 </Routes>
             </MainLayout>
         </BrowserRouter>

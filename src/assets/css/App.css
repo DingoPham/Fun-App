@@ -201,3 +201,7 @@ a:hover{
     align-items: center;
     gap: 4px;
 }
+.home-table-container > .pagination{
+    position: relative;
+    margin-top: 50px;
+}

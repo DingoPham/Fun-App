@@ -50,11 +50,43 @@ function Sidebar() {
                     </div>
                 )}
 
-                <NavLink to='/settings' className={({isActive}) => isActive ? "menu-item active" : "menu-item"}>
-                    <span className="menu-icon"><MdSettings /></span>
-                    <span className="menu-text">Settings</span>
-                </NavLink>
+                <div className='submenu-group'>
+                    <NavLink
+                        to='/settings'
+                        className={({isActive}) => isActive ? "menu-item active" : "menu-item"}
+                    >
+                        <span className="menu-icon"><MdSettings /></span>
+                        <span className="menu-text">Settings</span>
+                    </NavLink>
 
+                    {!collapsed && (
+                        <span
+                            className={`submenu-arrow ${openMenu === 'settings' ? 'rotate' : ''}`}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setOpenMenu(openMenu === 'settings' ? null : 'settings')
+                            }}
+                        >
+                            <MdKeyboardArrowDown />
+                        </span>
+                    )}
+                </div>
+                {openMenu === "settings" && !collapsed && (
+                    <div className="submenu">
+                        <NavLink
+                            to="/settings/profile"
+                            className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}
+                        >
+                            <span className="menu-text">Profile</span>
+                        </NavLink>
+                        <NavLink
+                            to="/settings/users"
+                            className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}
+                        >
+                            <span className="menu-text">Users</span>
+                        </NavLink>
+                    </div>
+                )}
             </div>
 
             <div className="menu-item close" onClick={() => setCollapsed(!collapsed)}>
