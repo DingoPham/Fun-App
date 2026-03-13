@@ -5,6 +5,7 @@ import Pagination from "../../components/Pagination";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import EmptyState from "../../components/EmptyState";
 import AddFileButton from "../../components/AddFileButton";
+import ReturnButton from "../../components/ReturnButton";
 
 function Illustration(){
     const [images, setImages] = useState([])
@@ -72,22 +73,28 @@ function Illustration(){
     }
     if(images.length === 0){
         return (
-            <div className='empty-container'>
-                <EmptyState />
-                <AddFileButton onClick={openFilePicker}/>
+            <>
+                <ReturnButton />
+                <div className='empty-container'>
+                    <EmptyState />
+                    <AddFileButton onClick={openFilePicker}/>
 
-                <input
-                    type="file"
-                    ref={fileInputRef}
-                    style={{display: "none"}}
-                    onChange={handleFileChange}
-                />
-            </div>
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        style={{display: "none"}}
+                        onChange={handleFileChange}
+                    />
+                </div>
+            </>
         )
     }
 
+
+
     return(
         <>
+            <ReturnButton />
             <div className='illustration-container'>
                 {currentImages.map((img, index) => {
                     if (img.isAdd) {

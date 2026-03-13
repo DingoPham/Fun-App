@@ -5,6 +5,7 @@ import {useEffect, useRef, useState} from "react";
 import {api} from "../../services/API";
 import Pagination from "../../components/Pagination";
 import { BsPlusCircleDotted } from "react-icons/bs";
+import ReturnButton from "../../components/ReturnButton";
 
 function Animation(){
     const [videos, setVideos] = useState([])
@@ -71,9 +72,12 @@ function Animation(){
         return <LoadingSpinner />
     }
 
+
+
     if (videos.length === 0) {
         return (
             <>
+                <ReturnButton />
                 <div className='empty-container'>
                     <EmptyState />
                     <AddFileButton onClick={openFilePicker} />
@@ -92,6 +96,7 @@ function Animation(){
 
     return (
         <>
+            <ReturnButton />
             <div className='illustration-container'>
 
                 {currentVideos.map((video, index) => {
