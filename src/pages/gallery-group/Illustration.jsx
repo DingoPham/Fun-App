@@ -90,8 +90,6 @@ function Illustration(){
         )
     }
 
-
-
     return(
         <>
             <ReturnButton />
