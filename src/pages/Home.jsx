@@ -2,6 +2,7 @@ import banner from "../assets/img/banner.png"
 import {useEffect, useState} from "react";
 import {api} from "../services/API";
 import Pagination from "../components/Pagination";
+import { useAuth } from "../context/AuthContext";
 
 function Home(){
     const [images, setImages] = useState([]);
@@ -10,6 +11,7 @@ function Home(){
     const [currentPage, setCurrentPage] = useState(1)
     const [filterType, setFilterType] = useState("all")
     const [sortOrder, setSortOrder] = useState("newest")
+    const { user } = useAuth();
 
     const itemsPerPage = 5
 
@@ -98,8 +100,12 @@ function Home(){
     return(
         <>
             <div className='content_main'>
-                <h3>Welcome, Guest</h3>
-                <h3>Welcome back, Master</h3>
+                {!user &&
+                    <h3>Welcome Guest</h3>
+                }
+                {user &&
+                    <h3>Welcome {user.username}</h3>
+                }
                 <div className='banner_content' style={{backgroundImage: `url(${banner})`}}/>
             </div>
             <div className='home-table-container'>
