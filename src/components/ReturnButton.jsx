@@ -1,4 +1,4 @@
-import { PiArrowArcLeftLight } from "react-icons/pi";
+import { IoArrowBack } from "react-icons/io5";
 import {NavLink} from "react-router-dom";
 
 function ReturnButton(){
@@ -6,7 +6,7 @@ function ReturnButton(){
     return(
         <>
             <NavLink to='/gallery' className='turnback-button'>
-                <PiArrowArcLeftLight />
+                <IoArrowBack />
             </NavLink>
         </>
     )

@@ -3,7 +3,7 @@
     --secondary-background-color: #1c4b37;
     --primary-text-color: #f5fffa;
     --hover-text-color: #b0ffd7;
-    --primary-button-color: #f7e7ce;
+    --primary-button-color: #1c4b37;
     --primary-button-text-color: #333333;
     --primary-font: "Quicksand";
     --sidebar-width: 300px;
@@ -45,7 +45,9 @@ a:hover{
     justify-content: center;
     text-transform: uppercase;
 }
-
+.head_layout a{
+    margin: 0 10px 0 calc(var(--sidebar-collapsed-width) + 10px);
+}
 .sidebar {
     height: 100vh;
     background: var(--sidebar-bg);
@@ -116,19 +118,26 @@ a:hover{
 }
 
 .footer_layout{
-    height: 30vh;
+    height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     background-color: var(--secondary-background-color);
     z-index: 0;
     position: relative;
+        padding: 20px 0 0;
+}
+.footer_layout_inner{
+    margin: 10px 10px 10px calc(var(--sidebar-collapsed-width) + 10px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
 }
 .main_content{
     min-height: 80vh;
     margin: 10px 10px 10px calc(var(--sidebar-collapsed-width) + 10px);
     position: relative;
+    padding-bottom: 50px;
 }
 .menu-item-wrapper {
     display: flex;
@@ -180,10 +189,13 @@ a:hover{
 .icon-social{
     display: flex;
     justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 .icon-social a{
-    width: 50px;
-    height: 50px;
+    max-width: 45px;
+    max-height: 45px;
+    flex-shrink: 0;
 }
 .icon-social a img{
     width: 100%;
@@ -192,16 +204,43 @@ a:hover{
 .title-m{
     margin-bottom: 20px;
 }
-.copyright{
-    position: absolute;
-    font-size: 15px;
-    bottom: 3%;
-    right: 1%;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
 .home-table-container > .pagination{
     position: relative;
     margin-top: 50px;
+}
+.footer_layout_copyright{
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid;
+}
+.copyright{
+    margin: 0 10px 0 calc(var(--sidebar-collapsed-width) + 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 14px;
+}
+@media screen and (max-width: 767px) {
+    .footer_layout_inner{
+        justify-content: flex-start;
+        gap: 50px;
+    }
+    .email-contact h5, .social-contact h5{
+        margin-bottom: 7px;
+    }
+    .icon-social{
+        gap: 10px;
+    }
+    .copyright{
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .email-con{
+        margin-left: 5px;
+    }
+    .menu-item{
+        padding: 12px 25px;
+    }
 }

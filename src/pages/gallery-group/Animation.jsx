@@ -1,4 +1,3 @@
-import LoadingSpinner from "../../components/LoadingSpinner";
 import EmptyState from "../../components/EmptyState";
 import AddFileButton from "../../components/AddFileButton";
 import {useEffect, useRef, useState} from "react";
@@ -7,6 +6,7 @@ import Pagination from "../../components/Pagination";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import ReturnButton from "../../components/ReturnButton";
 import {useAuth} from "../../context/AuthContext";
+import SkeletonGrid from "../../components/skeleton/SkeletonGrid";
 
 function Animation(){
     const [videos, setVideos] = useState([])
@@ -71,7 +71,12 @@ function Animation(){
     }
 
     if (loading) {
-        return <LoadingSpinner />
+        return (
+            <>
+                <ReturnButton />
+                <SkeletonGrid count={8}/>
+            </>
+        );
     }
 
 

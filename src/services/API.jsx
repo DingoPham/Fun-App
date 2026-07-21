@@ -14,7 +14,13 @@ async function request(endpoint, options = {}) {
     if (res.status === 204)
         return null;
 
-    return res.json();
+    const contentType = res.headers.get("content-type");
+
+    if (contentType && contentType.includes("application/json")) {
+        return await res.json();
+    }
+
+    return await res.text();
 }
 
 export const api = {

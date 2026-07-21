@@ -7,80 +7,63 @@ export function AuthProvider({ children }) {
 
     const [user, setUser] = useState(null);
 
-    const [loading, setLoading] = useState(true);
+    const loadUser = async () => {
+        try {
+            const me = await api.get("/auth/me");
+            setUser(me);
+        } catch {
+            setUser(null);
+        }
+    };
 
     useEffect(() => {
-
-        async function loadUser() {
-
-            try {
-
-                const me = await api.get("/auth/me");
-
-                setUser(me);
-
-            }
-            catch {
-
-                setUser(null);
-
-            }
-            finally {
-
-                setLoading(false);
-
-            }
-        }
-
         loadUser();
-
     }, []);
 
-    async function login(username, password) {
-
+    const login = async (username, password) => {
         await api.post("/auth/login", {
-
             username,
-
             password
-
         });
 
-        const me = await api.get("/auth/me");
+        await loadUser();
+    };
 
-        setUser(me);
-    }
-
-    async function logout() {
-
+    const logout = async () => {
         await api.post("/auth/logout");
-
         setUser(null);
-    }
+    };
 
+    const updateProfile = async (data) => {
+
+        const updatedUser = await api.put(
+            "/auth/profile",
+            data
+        );
+
+        setUser(updatedUser);
+
+        return updatedUser;
+    };
+
+    const changePassword = async (data) => {
+        return await api.put("/auth/change-password", data);
+    };
     return (
-
-       <AuthContext.Provider
-    value={{
-        user,
-        loading,
-        login,
-        logout,
-        isAuthenticated: !!user,
-        isAdmin: user?.role === "Admin"
-    }}
->
-
+        <AuthContext.Provider
+            value={{
+                user,
+                login,
+                logout,
+                updateProfile,
+                isAuthenticated: !!user,
+                isAdmin: user?.role === "Admin",
+                changePassword
+            }}
+        >
             {children}
-
         </AuthContext.Provider>
-
     );
-
 }
 
-export function useAuth() {
-
-    return useContext(AuthContext);
-
-}
+export const useAuth = () => useContext(AuthContext);

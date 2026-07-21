@@ -2,18 +2,18 @@ import {useEffect, useRef, useState} from "react";
 import {api} from "../../services/API";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import Pagination from "../../components/Pagination";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import EmptyState from "../../components/EmptyState";
 import AddFileButton from "../../components/AddFileButton";
 import ReturnButton from "../../components/ReturnButton";
 import {useAuth} from "../../context/AuthContext";
+import SkeletonGrid from "../../components/skeleton/SkeletonGrid";
 
 function Illustration(){
     const [images, setImages] = useState([])
     const [selectedImage, setSelectedImage] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
- const { isAdmin } = useAuth();
+    const { isAdmin } = useAuth();
 
     const fileInputRef = useRef(null)
     useEffect(() => {
@@ -70,8 +70,13 @@ function Illustration(){
         }
     }
 
-    if(loading){
-        return <LoadingSpinner />
+    if (loading) {
+        return (
+            <>
+                <ReturnButton />
+                <SkeletonGrid count={8}/>
+            </>
+        );
     }
     if(images.length === 0){
         return (

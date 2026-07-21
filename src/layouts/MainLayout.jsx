@@ -4,7 +4,7 @@ function MainLayout ({header, sidebar, footer, children}){
         <div className='main_layout'>
             {sidebar}
             {header}
-            <div>
+            <div className="body_layout">
                 <main className='main_content'>
                     {children}
                 </main>

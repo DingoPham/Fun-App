@@ -1,11 +1,14 @@
 import { MdSpaceDashboard, MdHome, MdInsertPhoto, MdSettings, MdArrowCircleRight, MdArrowCircleLeft, MdKeyboardArrowDown, MdOutlineOndemandVideo } from "react-icons/md";
 import { RiGalleryView2 } from "react-icons/ri";
+import { FaUser, FaUsersCog } from "react-icons/fa";
 import {useState} from "react";
 import { NavLink } from "react-router-dom"
+import {useAuth} from "../context/AuthContext";
 
 function Sidebar() {
     const [collapsed, setCollapsed] = useState(true)
     const [openMenu, setOpenMenu] = useState(null)
+    const { isAdmin } = useAuth();
 
     return (
         <div className={`sidebar ${collapsed ? "collapsed" : "expanded"}`}>
@@ -51,40 +54,31 @@ function Sidebar() {
                 )}
 
                 <div className='submenu-group'>
-                    <NavLink
-                        to='/settings'
-                        className={({isActive}) => isActive ? "menu-item active" : "menu-item"}
-                    >
+                    <NavLink to='/settings' className={({isActive}) => isActive ? "menu-item active" : "menu-item"}>
                         <span className="menu-icon"><MdSettings /></span>
                         <span className="menu-text">Settings</span>
                     </NavLink>
 
                     {!collapsed && (
-                        <span
-                            className={`submenu-arrow ${openMenu === 'settings' ? 'rotate' : ''}`}
-                            onClick={(e) => {
+                        <span className={`submenu-arrow ${openMenu === 'settings' ? 'rotate' : ''}`} onClick={(e) => {
                                 e.stopPropagation()
-                                setOpenMenu(openMenu === 'settings' ? null : 'settings')
-                            }}
-                        >
+                                setOpenMenu(openMenu === 'settings' ? null : 'settings')}}>
                             <MdKeyboardArrowDown />
                         </span>
                     )}
                 </div>
                 {openMenu === "settings" && !collapsed && (
                     <div className="submenu">
-                        <NavLink
-                            to="/settings/profile"
-                            className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}
-                        >
+                        <NavLink to="/settings/profile" className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}>
+                            <span className="menu-icon"><FaUser /></span>
                             <span className="menu-text">Profile</span>
                         </NavLink>
-                        <NavLink
-                            to="/settings/users"
-                            className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}
-                        >
-                            <span className="menu-text">Users</span>
-                        </NavLink>
+                        { isAdmin && (
+                            <NavLink to="/settings/users" className={({isActive}) => isActive ? "submenu-item active" : "submenu-item"}>
+                                <span className="menu-icon"><FaUsersCog /></span>
+                                <span className="menu-text">Users</span>
+                            </NavLink>
+                        )}
                     </div>
                 )}
             </div>
