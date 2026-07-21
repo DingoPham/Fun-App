@@ -1,50 +1,51 @@
-const BASE_URL = process.env.REACT_APP_API_URL
+const BASE_URL = process.env.REACT_APP_API_URL;
+
+async function request(endpoint, options = {}) {
+    const res = await fetch(`${BASE_URL}${endpoint}`, {
+        credentials: "include",
+        ...options
+    });
+
+    if (!res.ok) {
+        const message = await res.text();
+        throw new Error(message);
+    }
+
+    if (res.status === 204)
+        return null;
+
+    return res.json();
+}
 
 export const api = {
-    get: async (endpoint) => {
-        const res = await fetch(`${BASE_URL}${endpoint}`)
-        if (!res.ok) throw new Error("API error")
-        return res.json()
+
+    get(endpoint) {
+        return request(endpoint);
     },
 
-    post: async (endpoint, data) => {
-        const res = await fetch(`${BASE_URL}${endpoint}`, {
+    post(endpoint, data) {
+        return request(endpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        })
-        if (!res.ok) throw new Error("API error")
-        return res.json()
+        });
     },
 
-    put: async (endpoint, data) => {
-        const res = await fetch(`${BASE_URL}${endpoint}`, {
+    put(endpoint, data) {
+        return request(endpoint, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        })
-        if (!res.ok) throw new Error("API error")
-        return res.json()
+        });
     },
 
-    delete: async (endpoint) => {
-        const res = await fetch(`${BASE_URL}${endpoint}`, {
+    delete(endpoint) {
+        return request(endpoint, {
             method: "DELETE"
-        })
-        if (!res.ok) throw new Error("API error")
-        return res
-    },
-
-    upload: async (endpoint, formData) => {
-        const res = await fetch(`${BASE_URL}${endpoint}`, {
-            method: "POST",
-            body: formData
-        })
-        if (!res.ok) throw new Error("API error")
-        return res.json()
+        });
     }
-}
+};

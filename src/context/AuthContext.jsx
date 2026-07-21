@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { api } from "../services/API";
 
 const AuthContext = createContext();
 
@@ -6,43 +7,80 @@ export function AuthProvider({ children }) {
 
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const savedUser = localStorage.getItem("user");
+    const [loading, setLoading] = useState(true);
 
-        if (savedUser) {
-            setUser(JSON.parse(savedUser));
+    useEffect(() => {
+
+        async function loadUser() {
+
+            try {
+
+                const me = await api.get("/auth/me");
+
+                setUser(me);
+
+            }
+            catch {
+
+                setUser(null);
+
+            }
+            finally {
+
+                setLoading(false);
+
+            }
         }
+
+        loadUser();
+
     }, []);
 
-    const login = (userData) => {
-        setUser(userData);
+    async function login(username, password) {
 
-        localStorage.setItem(
-            "user",
-            JSON.stringify(userData)
-        );
-    };
+        await api.post("/auth/login", {
 
-    const logout = () => {
+            username,
+
+            password
+
+        });
+
+        const me = await api.get("/auth/me");
+
+        setUser(me);
+    }
+
+    async function logout() {
+
+        await api.post("/auth/logout");
+
         setUser(null);
-
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-    };
+    }
 
     return (
-        <AuthContext.Provider
-            value={{
-                user,
-                login,
-                logout
-            }}
-        >
+
+       <AuthContext.Provider
+    value={{
+        user,
+        loading,
+        login,
+        logout,
+        isAuthenticated: !!user,
+        isAdmin: user?.role === "Admin"
+    }}
+>
+
             {children}
+
         </AuthContext.Provider>
+
     );
+
 }
 
 export function useAuth() {
+
     return useContext(AuthContext);
+
 }

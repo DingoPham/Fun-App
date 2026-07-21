@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { api } from "../services/API";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -14,25 +13,14 @@ function Login() {
 
     const handleLogin = async () => {
 
-        try{
+        try {
 
-            const result = await api.post("/login",{
-
-                username,
-                password
-
-            });
-
-            localStorage.setItem(
-                "token",
-                result.token
-            );
-
-            login(result);
+            await login(username, password);
 
             navigate("/");
 
-        }catch{
+        }
+        catch {
 
             alert("Sai tài khoản hoặc mật khẩu");
 

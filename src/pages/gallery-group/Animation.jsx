@@ -6,12 +6,14 @@ import {api} from "../../services/API";
 import Pagination from "../../components/Pagination";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import ReturnButton from "../../components/ReturnButton";
+import {useAuth} from "../../context/AuthContext";
 
 function Animation(){
     const [videos, setVideos] = useState([])
     const [selectedVideo, setSelectedVideo] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
+    const { isAdmin } = useAuth();
 
     const fileInputRef = useRef(null)
 
@@ -38,7 +40,7 @@ function Animation(){
 
     const itemsPerPage = 8
 
-    const videosWithAddSlot = [...videos, { id: "add-slot", isAdd: true }]
+    const videosWithAddSlot = isAdmin ? [...videos, { id: "add-slot", isAdd: true }] : videos;
 
     const indexOfLast = currentPage * itemsPerPage
     const indexOfFirst = indexOfLast - itemsPerPage
@@ -80,15 +82,19 @@ function Animation(){
                 <ReturnButton />
                 <div className='empty-container'>
                     <EmptyState />
-                    <AddFileButton onClick={openFilePicker} />
+                    {isAdmin && (
+                        <>
+                            <AddFileButton onClick={openFilePicker} />
 
-                    <input
-                        type="file"
-                        accept="video/*"
-                        ref={fileInputRef}
-                        style={{ display: "none" }}
-                        onChange={handleFileChange}
-                    />
+                            <input
+                                type="file"
+                                accept="video/*"
+                                ref={fileInputRef}
+                                style={{ display: "none" }}
+                                onChange={handleFileChange}
+                            />
+                        </>
+                    )}
                 </div>
             </>
         )
@@ -100,14 +106,9 @@ function Animation(){
             <div className='illustration-container'>
 
                 {currentVideos.map((video, index) => {
-
                     if (video.isAdd) {
                         return (
-                            <div
-                                key={`add-slot-${index}`}
-                                className='increase-img-slot'
-                                onClick={openFilePicker}
-                            >
+                            <div key={`add-slot-${index}`} className='increase-img-slot' onClick={openFilePicker}>
                                 <div className='increase-img-slot-button'>
                                     <BsPlusCircleDotted />
                                 </div>

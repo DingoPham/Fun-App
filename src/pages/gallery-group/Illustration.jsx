@@ -6,12 +6,14 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import EmptyState from "../../components/EmptyState";
 import AddFileButton from "../../components/AddFileButton";
 import ReturnButton from "../../components/ReturnButton";
+import {useAuth} from "../../context/AuthContext";
 
 function Illustration(){
     const [images, setImages] = useState([])
     const [selectedImage, setSelectedImage] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
+ const { isAdmin } = useAuth();
 
     const fileInputRef = useRef(null)
     useEffect(() => {
@@ -38,7 +40,7 @@ function Illustration(){
 
     const itemsPerPage = 8
 
-    const imagesWithAddSlot = [...images, { id: "add-slot", isAdd: true }]
+    const imagesWithAddSlot = isAdmin ? [...images, { id: "add-slot", isAdd: true }] : images;
 
     const indexOfLast = currentPage * itemsPerPage
     const indexOfFirst = indexOfLast - itemsPerPage

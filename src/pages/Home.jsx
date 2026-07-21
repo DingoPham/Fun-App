@@ -5,19 +5,19 @@ import Pagination from "../components/Pagination";
 import { useAuth } from "../context/AuthContext";
 
 function Home(){
+
     const [images, setImages] = useState([]);
     const [videos, setVideos] = useState([])
     const [selectedMedia, setSelectedMedia] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
     const [filterType, setFilterType] = useState("all")
     const [sortOrder, setSortOrder] = useState("newest")
-    const { user } = useAuth();
+    const { user, isAuthenticated, isAdmin } = useAuth();
 
     const itemsPerPage = 5
 
     const indexOfLast = currentPage * itemsPerPage
     const indexOfFirst = indexOfLast - itemsPerPage
-
     useEffect(() => {
         api.get("/illustration").then(setImages)
         api.get("/animation").then(setVideos)
@@ -100,119 +100,121 @@ function Home(){
     return(
         <>
             <div className='content_main'>
-                {!user &&
-                    <h3>Welcome Guest</h3>
-                }
-                {user &&
-                    <h3>Welcome {user.username}</h3>
-                }
+                {!isAuthenticated && (
+                    <h3>Welcome, Guest</h3>
+                )}
+                {isAuthenticated && (
+                    <h3>Welcome back, {user.username}</h3>
+                )}
                 <div className='banner_content' style={{backgroundImage: `url(${banner})`}}/>
             </div>
-            <div className='home-table-container'>
-                <div className="table-filter">
+            {isAdmin && (
+                <div className='home-table-container'>
+                    <div className="table-filter">
 
-                    <select
-                        value={filterType}
-                        onChange={(e)=> {
-                            setFilterType(e.target.value)
-                            setCurrentPage(1)
-                        }}
-                    >
-                        <option value="all">All</option>
-                        <option value="image">Images</option>
-                        <option value="video">Videos</option>
-                    </select>
+                        <select
+                            value={filterType}
+                            onChange={(e)=> {
+                                setFilterType(e.target.value)
+                                setCurrentPage(1)
+                            }}
+                        >
+                            <option value="all">All</option>
+                            <option value="image">Images</option>
+                            <option value="video">Videos</option>
+                        </select>
 
-                    <select
-                        value={sortOrder}
-                        onChange={(e)=>{
-                            setSortOrder(e.target.value)
-                            setCurrentPage(1)
-                        }}
-                    >
-                        <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>
-                    </select>
+                        <select
+                            value={sortOrder}
+                            onChange={(e)=>{
+                                setSortOrder(e.target.value)
+                                setCurrentPage(1)
+                            }}
+                        >
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                        </select>
 
-                </div>
-                <table className="home_table">
-                    <thead>
-                    <tr>
-                        <th>Preview</th>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {currentMedia.map((item,index)=>(
-                        <tr key={index}>
-                            <td>
-                                {item.type === "image" ? (
-                                    <img
-                                        src={item.imageUrl}
-                                        alt=""
-                                        onClick={() => setSelectedMedia(item)}
-                                        style={{cursor:"pointer"}}
-                                    />
-                                ) : (
-                                    <video
-                                        src={item.videoUrl}
-                                        muted
-                                        onClick={() => setSelectedMedia(item)}
-                                        style={{cursor:"pointer"}}
-                                    />
-                                )}
-                            </td>
-
-                            <td>{item.title}</td>
-
-                            <td>{item.type}</td>
-
-                            <td>
-                                <div className='action-button-container'>
-                                    <button onClick={() => handleEdit(item)} className='action-button-ui'>
-                                        Edit
-                                    </button>
-
-                                    <button onClick={() => handleDelete(item)} className='action-button-ui'>
-                                        Delete
-                                    </button>
-                                </div>
-                            </td>
-
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-                <Pagination
-                    totalItems={filteredMedia.length}
-                    itemsPerPage={itemsPerPage}
-                    onPageData={setCurrentPage}
-                />
-                {selectedMedia && (
-                    <div
-                        className="media_overlay"
-                        onClick={() => setSelectedMedia(null)}
-                    >
-                        {selectedMedia.type === "image" ? (
-                            <img
-                                src={selectedMedia.imageUrl}
-                                alt=""
-                                onClick={(e) => e.stopPropagation()}
-                            />
-                        ) : (
-                            <video
-                                src={selectedMedia.videoUrl}
-                                controls
-                                autoPlay
-                                onClick={(e) => e.stopPropagation()}
-                            />
-                        )}
                     </div>
-                )}
-            </div>
+                    <table className="home_table">
+                        <thead>
+                        <tr>
+                            <th>Preview</th>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {currentMedia.map((item,index)=>(
+                            <tr key={index}>
+                                <td>
+                                    {item.type === "image" ? (
+                                        <img
+                                            src={item.imageUrl}
+                                            alt=""
+                                            onClick={() => setSelectedMedia(item)}
+                                            style={{cursor:"pointer"}}
+                                        />
+                                    ) : (
+                                        <video
+                                            src={item.videoUrl}
+                                            muted
+                                            onClick={() => setSelectedMedia(item)}
+                                            style={{cursor:"pointer"}}
+                                        />
+                                    )}
+                                </td>
+
+                                <td>{item.title}</td>
+
+                                <td>{item.type}</td>
+
+                                <td>
+                                    <div className='action-button-container'>
+                                        <button onClick={() => handleEdit(item)} className='action-button-ui'>
+                                            Edit
+                                        </button>
+
+                                        <button onClick={() => handleDelete(item)} className='action-button-ui'>
+                                            Delete
+                                        </button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    <Pagination
+                        totalItems={filteredMedia.length}
+                        itemsPerPage={itemsPerPage}
+                        onPageData={setCurrentPage}
+                    />
+                    {selectedMedia && (
+                        <div
+                            className="media_overlay"
+                            onClick={() => setSelectedMedia(null)}
+                        >
+                            {selectedMedia.type === "image" ? (
+                                <img
+                                    src={selectedMedia.imageUrl}
+                                    alt=""
+                                    onClick={(e) => e.stopPropagation()}
+                                />
+                            ) : (
+                                <video
+                                    src={selectedMedia.videoUrl}
+                                    controls
+                                    autoPlay
+                                    onClick={(e) => e.stopPropagation()}
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+            )}
         </>
     )
 }

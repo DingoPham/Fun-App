@@ -12,9 +12,11 @@ import Gallery from "./pages/Gallery";
 import Settings from "./pages/Settings";
 import Illustration from "./pages/gallery-group/Illustration";
 import Animation from "./pages/gallery-group/Animation";
-import UserProfile from "./components/users/UserProfile";
 import UserTable from "./components/users/UserTable";
 import ProtectedRoute from "./components/auth/ProtectedRoute"
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 
 function App() {
     return (
@@ -30,9 +32,11 @@ function App() {
                     <Route path='/gallery/illustration' element={<Illustration />} />
                     <Route path='/gallery/animation' element={<Animation />} />
                     <Route path='/settings' element={<Settings/>} />
-                    <Route path='/settings/profile' element={<UserProfile />} />
+                    <Route path='/settings/profile' element={<Profile />} />
                     <Route path='/settings/users' element={<UserTable />} />
                     <Route path="/users" element={<ProtectedRoute roles={["Admin"]}><UserTable /></ProtectedRoute>}/>
+                    <Route path='/login' element={<Login/>} />
+                    <Route path='/register' element={<Register/>} />
                 </Routes>
             </MainLayout>
         </BrowserRouter>
