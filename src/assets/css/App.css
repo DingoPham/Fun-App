@@ -221,7 +221,7 @@ a:hover{
     gap: 3px;
     font-size: 14px;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 991px) {
     .footer_layout_inner{
         justify-content: flex-start;
         gap: 50px;
@@ -242,5 +242,8 @@ a:hover{
     }
     .menu-item{
         padding: 12px 25px;
+    }
+    .image-overlay img{
+        max-height: fit-content;
     }
 }
