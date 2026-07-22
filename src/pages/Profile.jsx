@@ -132,15 +132,15 @@ function Profile() {
                 ) : (
                     <div className="password-section">
                         <div className="profile-row profile-row-change">
-                            <label>Current Password</label>
+                            <label>Current password</label>
                             <input placeholder="Enter your old password" className="profile-edit-input" type="password" value={passwordForm.currentPassword} onChange={(e) => setPasswordForm({...passwordForm, currentPassword: e.target.value})}/>
                         </div>
                         <div className="profile-row profile-row-change">
-                            <label>New Password</label>
+                            <label>New password</label>
                             <input placeholder="Enter your new password" className="profile-edit-input" type="password" value={passwordForm.newPassword} onChange={(e) => setPasswordForm({...passwordForm, newPassword: e.target.value})}/>
                         </div>
                         <div className="profile-row profile-row-change">
-                            <label>Confirm Password</label>
+                            <label>Confirm password</label>
                             <input placeholder="Re enter your new password" className="profile-edit-input" type="password" value={passwordForm.confirmPassword} onChange={(e) => setPasswordForm({...passwordForm, confirmPassword: e.target.value})}/>
                         </div>
                     </div>
