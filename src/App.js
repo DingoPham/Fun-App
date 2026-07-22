@@ -2,7 +2,7 @@ import './assets/css/App.css';
 import './assets/css/Content.css';
 
 import MainLayout from "./layouts/MainLayout";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { HashRouter, Routes, Route } from "react-router-dom"
 
 import Header from "./layouts/Header";
 import Sidebar from "./layouts/Sidebar";
@@ -20,7 +20,7 @@ import Profile from "./pages/Profile";
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <MainLayout
                 header={<Header/>}
                 sidebar={<Sidebar/>}
@@ -39,7 +39,7 @@ function App() {
                     <Route path='/register' element={<Register/>} />
                 </Routes>
             </MainLayout>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
