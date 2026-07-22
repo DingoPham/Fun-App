@@ -2,8 +2,10 @@
     --primary-background-color: #102c26;
     --secondary-background-color: #1c4b37;
     --primary-text-color: #f5fffa;
+    --input-border-color: #dddddd;
+    --input-border-color-hover: #222222;
     --hover-text-color: #b0ffd7;
-    --primary-button-color: #1c4b37;
+    --primary-button-color: #103415;
     --primary-button-text-color: #333333;
     --primary-font: "Quicksand";
     --sidebar-width: 300px;
@@ -14,6 +16,10 @@
     --border-color: #203f29;
     --primary-button-color-dark: #103425;
     --primary-button-text-color-dark: #f5fffa;
+    --primary-button-text-color-error: #e74c3c;
+    --primary-button-text-color-warning: #f39c12;
+    --primary-button-text-color-success: #2ecc71;
+    --primary-button-text-color-info: #3498db;
 }
 
 .main_layout{
@@ -123,7 +129,7 @@ a:hover{
     background-color: var(--secondary-background-color);
     z-index: 0;
     position: relative;
-        padding: 20px 0 0;
+    padding: 20px 0 0;
 }
 .footer_layout_inner{
     margin: 10px 10px 10px calc(var(--sidebar-collapsed-width) + 10px);
@@ -137,7 +143,6 @@ a:hover{
     min-height: 80vh;
     margin: 10px 10px 10px calc(var(--sidebar-collapsed-width) + 10px);
     position: relative;
-    padding-bottom: 50px;
 }
 .menu-item-wrapper {
     display: flex;

@@ -4,11 +4,14 @@ import './assets/css/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from "./context/AuthContext";
+import {ToastProvider} from "./context/ToastContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <AuthProvider>
-        <App />
+        <ToastProvider>
+            <App/>
+        </ToastProvider>
     </AuthProvider>
 );
 
