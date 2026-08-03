@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../services/API";
+import { onUnauthorized } from "../services/AuthEvents";
+import { useToast } from "./ToastContext";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-
     const [user, setUser] = useState(null);
-
+    const { warning } = useToast();
     const loadUser = async () => {
         try {
             const me = await api.get("/auth/me");
@@ -18,7 +19,12 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         loadUser();
-    }, []);
+        const unsubscribe = onUnauthorized(() => {
+            warning("Your session has expired...");
+            setUser(null);
+        });
+        return unsubscribe;
+    }, [warning]);
 
     const login = async (username, password) => {
         await api.post("/auth/login", {

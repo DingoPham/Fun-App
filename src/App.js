@@ -32,7 +32,7 @@ function App() {
                     <Route path='/gallery/illustration' element={<Illustration />} />
                     <Route path='/gallery/animation' element={<Animation />} />
                     <Route path='/settings' element={<Settings/>} />
-                    <Route path='/settings/profile' element={<Profile />} />
+                    <Route path='/settings/profile'  element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                     <Route path='/settings/users' element={<UserTable />} />
                     <Route path="/users" element={<ProtectedRoute roles={["Admin"]}><UserTable /></ProtectedRoute>}/>
                     <Route path='/login' element={<Login/>} />
