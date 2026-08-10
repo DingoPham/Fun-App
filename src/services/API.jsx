@@ -69,6 +69,14 @@ export const api = {
         });
     },
 
+    upload(endpoint, formData, options = {}) {
+        return request(endpoint, {
+            method: "POST",
+            body: formData,
+            ...options
+        });
+    },
+
     delete(endpoint, options = {}) {
         return request(endpoint, {
             method: "DELETE",
