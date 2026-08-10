@@ -21,7 +21,7 @@ function Footer(){
                 <div className="social-contact">
                     <h5 className='title-m'>My other social media platforms:</h5>
                     <div className='icon-social'>
-                        <a target="_blank" rel="noreferrer" href="https://www.facebook.com/dingopham.3/">
+                        <a target="_blank" rel="noreferrer" href="https://www.facebook.com/owo.dingo">
                             <img src={facebook} alt='facebook'/>
                         </a>
                         <a target="_blank" rel="noreferrer" href="https://x.com/DingoPham">
