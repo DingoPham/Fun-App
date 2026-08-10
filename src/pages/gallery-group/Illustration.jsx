@@ -1,12 +1,13 @@
 import {useEffect, useRef, useState} from "react";
 import {api} from "../../services/API";
 import { BsPlusCircleDotted } from "react-icons/bs";
-import Pagination from "../../components/Pagination";
-import EmptyState from "../../components/EmptyState";
-import AddFileButton from "../../components/AddFileButton";
-import ReturnButton from "../../components/ReturnButton";
+import Pagination from "../../components/pagination/Pagination";
+import EmptyState from "../../components/state/EmptyState";
+import AddFileButton from "../../components/button/AddFileButton";
+import ReturnButton from "../../components/button/ReturnButton";
 import {useAuth} from "../../context/AuthContext";
 import SkeletonGrid from "../../components/skeleton/SkeletonGrid";
+import LazyImage from "../../components/lazyload/LazyImage";
 
 function Illustration(){
     const [images, setImages] = useState([])
@@ -116,10 +117,12 @@ function Illustration(){
                         )
                     }
                     return (
-                        <img key={img.id }
-                             src={img.imageUrl}
-                             alt={img.title}
-                             onClick={() => setSelectedImage(img.imageUrl)}/>
+                        <LazyImage
+                            key={img.id}
+                            src={img.imageUrl}
+                            alt={img.title}
+                            onClick={() => setSelectedImage(img.imageUrl)}
+                        />
                     )
                 })}
                 {selectedImage && (

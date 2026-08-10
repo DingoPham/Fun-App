@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {FaEnvelope, FaUserCircle, FaUserShield, FaUser } from "react-icons/fa";
-import {useAuth} from "../context/AuthContext";
+import {useAuth} from "../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
-import { useToast } from "../context/ToastContext";
+import { useToast } from "../../context/ToastContext";
 
 function Profile() {
     const { user, logout, isAuthenticated, updateProfile, changePassword } = useAuth();

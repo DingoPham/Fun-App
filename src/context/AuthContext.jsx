@@ -27,10 +27,16 @@ export function AuthProvider({ children }) {
     }, [warning]);
 
     const login = async (username, password) => {
-        await api.post("/auth/login", {
-            username,
-            password
-        });
+        await api.post(
+            "/auth/login",
+            {
+                username,
+                password
+            },
+            {
+                skipUnauthorized: true
+            }
+        );
 
         await loadUser();
     };

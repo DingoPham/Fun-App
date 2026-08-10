@@ -1,12 +1,13 @@
-import EmptyState from "../../components/EmptyState";
-import AddFileButton from "../../components/AddFileButton";
+import EmptyState from "../../components/state/EmptyState";
+import AddFileButton from "../../components/button/AddFileButton";
 import {useEffect, useRef, useState} from "react";
 import {api} from "../../services/API";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/pagination/Pagination";
 import { BsPlusCircleDotted } from "react-icons/bs";
-import ReturnButton from "../../components/ReturnButton";
+import ReturnButton from "../../components/button/ReturnButton";
 import {useAuth} from "../../context/AuthContext";
 import SkeletonGrid from "../../components/skeleton/SkeletonGrid";
+import LazyVideo from "../../components/lazyload/LazyVideo";
 
 function Animation(){
     const [videos, setVideos] = useState([])
@@ -122,11 +123,13 @@ function Animation(){
                     }
 
                     return (
-                        <video
+                        <LazyVideo
                             key={video.id}
                             src={video.videoUrl}
-                            onClick={() => setSelectedVideo(video.videoUrl)}
+                            preload="metadata"
                             muted
+                            playsInline
+                            onClick={() => setSelectedVideo(video.videoUrl)}
                         />
                     )
                 })}
